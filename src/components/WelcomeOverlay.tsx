@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { HERO_VIDEO_URL } from '../mediaConfig';
 
 interface WelcomeOverlayProps {
     onStart: () => void;
@@ -24,12 +25,26 @@ export const WelcomeOverlay: React.FC<WelcomeOverlayProps> = ({ onStart }) => {
             transition={{ duration: 1.5, ease: "easeInOut" }}
             onClick={onStart}
         >
-            {/* Simple Gradient Background - No Video */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] to-[#050505]" />
-            <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+            {/* 1. BACKGROUND VIDEO (User Requested "Video Card on Background") */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover opacity-60"
+            >
+                {/* Use the same reliable video or the Kling one if user prefers. 
+                    User said "make a video card on the background", which typically means full screen video bg.
+                    I'll use HERO_VIDEO_URL as it's the confirmed functional one.
+                */}
+                <source
+                    src={HERO_VIDEO_URL}
+                    type="video/mp4"
+                />
+            </video>
 
-            {/* Central Pulse */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-lumina-accent/10 rounded-full blur-[120px] animate-pulse" />
+            {/* 2. GRADIENT OVERLAY (Makes text pop) */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
             <div className="relative z-10 text-center px-4">
                 <motion.button

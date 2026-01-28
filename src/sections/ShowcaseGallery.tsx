@@ -2,11 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 
-const projects = [
-    { title: "Neon Rain", category: "Music Video", color: "bg-lumina-accent", video: "https://assets.mixkit.co/videos/preview/mixkit-futuristic-city-traffic-at-night-34563-large.mp4" },
-    { title: "Mars 2099", category: "Short Film", color: "bg-lumina-cyan", video: "https://assets.mixkit.co/videos/preview/mixkit-red-smoke-swirling-in-the-dark-44284-large.mp4" },
-    { title: "Neural Dreams", category: "Experimental", color: "bg-lumina-magenta", video: "https://assets.mixkit.co/videos/preview/mixkit-abstract-blue-liquid-ink-swirl-1097-large.mp4" },
-    { title: "Cyber Noir", category: "Commercial", color: "bg-purple-500", video: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-neon-circle-12799-large.mp4" },
+const projects = [{ title: "Change Background", category: "Fantastic", color: "bg-lumina-cyan", video: "https://v16-kling.klingai.com/kos/s101/nlav112918/kling-website/page1-v2-5-265.mp4" },
+
+{ title: "Running in Desert", category: "Mixing two elements", color: "bg-lumina-accent", video: "https://v16-kling.klingai.com/kos/s101/nlav112918/kling-website/page1-v2-1-265.mp4" },
+{ title: "Neural Dreams", category: "Experimental", color: "bg-lumina-magenta", video: "https://v16-kling.klingai.com/kos/s101/nlav112918/kling-website/page1-v2-2-265.mp4" },
+{ title: "Modify Hair Color", category: "Colourful", color: "bg-purple-500", video: "https://v16-kling.klingai.com/kos/s101/nlav112918/kling-website/page1-v2-3-265.mp4" },
 ];
 
 export const ShowcaseGallery: React.FC = () => {
@@ -23,7 +23,7 @@ export const ShowcaseGallery: React.FC = () => {
                 {projects.map((project, i) => (
                     <motion.div
                         key={i}
-                        initial={{ opacity: 0, y: 50 }}
+                        initial={{ opacity: 0.99, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1 }}
@@ -35,7 +35,7 @@ export const ShowcaseGallery: React.FC = () => {
                         onMouseLeave={(e) => {
                             const video = e.currentTarget.querySelector('video');
                             if (video) {
-                                video.pause();
+                                video.play();
                                 video.currentTime = 0;
                             }
                         }}

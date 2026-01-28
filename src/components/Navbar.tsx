@@ -24,6 +24,17 @@ export const Navbar: React.FC = () => {
         }
     };
 
+    // Body Scroll Lock & Lenis Control
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            // Optional: If you interpret the 'mouse' issue as wheel propagation
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [isOpen]);
+
     return (
         <>
             {/* Trigger Button */}
@@ -57,42 +68,47 @@ export const Navbar: React.FC = () => {
                         animate={{ y: 0 }}
                         exit={{ y: "-100%" }}
                         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                        className="fixed inset-0 z-[55] bg-[#050505] flex items-center justify-center h-screen w-screen overflow-y-auto overscroll-contain"
+                        className="fixed inset-0 z-[55] bg-[#050505] overflow-y-auto overscroll-contain"
+                        data-lenis-prevent // CRITICAL: Tells Lenis to stop hijacking scroll here
                     >
-                        {/* Background Decoration */}
-                        <div className="absolute inset-0 opacity-10 pointer-events-none fixed">
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-lumina-accent/20 rounded-full blur-[200px]" />
-                        </div>
+                        {/* Scroll Wrapper */}
+                        <div className="min-h-[100dvh] w-full flex flex-col items-center justify-center py-20 relative">
 
-                        <ul className="flex flex-col gap-6 md:gap-10 items-center justify-center relative z-10 w-full px-6 py-20 min-h-screen">
-                            {menuItems.map((item, i) => (
-                                <motion.li
-                                    key={item.path}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 50 }}
-                                    transition={{ delay: 0.3 + (i * 0.1), duration: 0.5 }}
-                                    className="w-full max-w-4xl border-b border-white/10 pb-6 group"
-                                >
-                                    <a
-                                        href={`#${item.path}`}
-                                        onClick={(e) => scrollToSection(item.path, e)}
-                                        className="flex items-center justify-between w-full"
+                            {/* Background Decoration (Fixed position relative to screen) */}
+                            <div className="absolute inset-0 opacity-10 pointer-events-none fixed">
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-lumina-accent/20 rounded-full blur-[200px]" />
+                            </div>
+
+                            <ul className="flex flex-col gap-6 md:gap-10 items-center justify-center relative z-10 w-full px-6">
+                                {menuItems.map((item, i) => (
+                                    <motion.li
+                                        key={item.path}
+                                        initial={{ opacity: 0, y: 50 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 50 }}
+                                        transition={{ delay: 0.3 + (i * 0.1), duration: 0.5 }}
+                                        className="w-full max-w-4xl border-b border-white/10 pb-6 group"
                                     >
-                                        <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8">
-                                            <span className="text-xs font-mono text-white/40 uppercase tracking-widest">{`0${i + 1}`}</span>
-                                            <span className="font-display text-4xl md:text-7xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50 group-hover:to-lumina-cyan transition-all duration-500">
-                                                {item.name}
-                                            </span>
-                                        </div>
-                                        <div className="hidden md:flex items-center gap-2 opacity-0 -translate-x-10 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-lumina-cyan">
-                                            <span className="text-sm font-bold uppercase tracking-wider">{item.sub}</span>
-                                            <ArrowRight className="w-5 h-5" />
-                                        </div>
-                                    </a>
-                                </motion.li>
-                            ))}
-                        </ul>
+                                        <a
+                                            href={`#${item.path}`}
+                                            onClick={(e) => scrollToSection(item.path, e)}
+                                            className="flex items-center justify-between w-full"
+                                        >
+                                            <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8">
+                                                <span className="text-xs font-mono text-white/40 uppercase tracking-widest">{`0${i + 1}`}</span>
+                                                <span className="font-display text-4xl md:text-7xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50 group-hover:to-lumina-cyan transition-all duration-500">
+                                                    {item.name}
+                                                </span>
+                                            </div>
+                                            <div className="hidden md:flex items-center gap-2 opacity-0 -translate-x-10 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-lumina-cyan">
+                                                <span className="text-sm font-bold uppercase tracking-wider">{item.sub}</span>
+                                                <ArrowRight className="w-5 h-5" />
+                                            </div>
+                                        </a>
+                                    </motion.li>
+                                ))}
+                            </ul>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
