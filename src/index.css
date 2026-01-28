@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;700;800&family=Orbitron:wght@400;700;900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-lumina-bg: var(--bg-primary);
+  --color-lumina-text: var(--text-primary);
+  --color-lumina-accent: var(--accent-primary);
+  --color-lumina-cyan: var(--accent-secondary);
+  --color-lumina-magenta: var(--accent-tertiary);
+  --font-display: var(--font-display);
+}
+
+:root {
+  color-scheme: dark;
+
+  /* Origin Theme (Default) */
+  --bg-primary: #050505;
+  --text-primary: #F5F5F5;
+  --accent-primary: #7C3AED;
+  /* Electric Violet */
+  --accent-secondary: #22D3EE;
+  /* Cyan */
+  --accent-tertiary: #D946EF;
+  /* Magenta */
+  --font-display: 'Syne', sans-serif;
+
+  transition: --bg-primary 0.5s ease, --text-primary 0.5s ease, --accent-primary 0.5s ease;
+}
+
+.theme-cyberpunk {
+  /* Cyberpunk Override */
+  --bg-primary: #0a0015;
+  /* Deep Violet Black */
+  --text-primary: #E0E0E0;
+  --accent-primary: #FF0055;
+  /* Neon Red/Pink */
+  --accent-secondary: #00FF9D;
+  /* Neon Green */
+  --accent-tertiary: #FFE600;
+  /* Cyber Yellow */
+  --font-display: 'Orbitron', sans-serif;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+  /* For custom cursor */
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Glitch Effect Class */
+.glitch-text {
+  text-shadow: 2px 2px 0px var(--accent-primary), -2px -2px 0px var(--accent-secondary);
+  animation: glitch 1s infinite alternate;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 2px 0px var(--accent-primary), -2px -2px 0px var(--accent-secondary);
+  }
+
+  25% {
+    text-shadow: -2px 2px 0px var(--accent-primary), 2px -2px 0px var(--accent-secondary);
+  }
+
+  50% {
+    text-shadow: 2px -2px 0px var(--accent-primary), -2px 2px 0px var(--accent-secondary);
+  }
+
+  100% {
+    text-shadow: -2px -2px 0px var(--accent-primary), 2px 2px 0px var(--accent-secondary);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
