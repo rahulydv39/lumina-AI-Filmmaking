@@ -20,7 +20,7 @@ const homeCards = [
         colSpan: "col-span-1 md:col-span-2",
         height: "h-80",
         // The link is valid, but check if it actually plays in your browser!
-        media: "/videos/project-1.mp4",
+        media: CARD_IMAGE_1,
         isVideo: true
     },
     {
